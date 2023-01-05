@@ -1,6 +1,5 @@
 package com.ifryed.gymtimer
 
-import com.example.gymtimer.R
 import android.app.Service
 import android.content.Intent
 import android.graphics.Color
@@ -8,16 +7,13 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.view.View.OnTouchListener
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import com.example.gymtimer.R
 import com.ifryed.gymtimer.Common.Common
+import me.grantland.widget.AutofitTextView
 
 
 class FloatingWindowGFG : Service() {
@@ -33,7 +29,7 @@ class FloatingWindowGFG : Service() {
     private var startBtn: Button? = null
     private var pauseBtn: Button? = null
     private var resetBtn: Button? = null
-    private var dispTimer: EditText? = null
+    private var dispTimer: AutofitTextView? = null
 
     private var mTimer: CountDownTimer? = null
     private var mTimerRunning: Boolean = false
@@ -49,7 +45,7 @@ class FloatingWindowGFG : Service() {
         if (extras != null) {
             mTimerRunning = extras.get("timerRun") as Boolean
 
-            if (mTimerRunning){
+            if (mTimerRunning) {
                 mTimerRunning = false
                 startBtn!!.callOnClick()
             }
@@ -82,9 +78,22 @@ class FloatingWindowGFG : Service() {
         // the corresponding component id used in floating_layout xml file
         maximizeBtn = floatView!!.findViewById(R.id.buttonMaximize)
         dispTimer = floatView!!.findViewById(R.id.timer)
-        startBtn = floatView!!.findViewById(R.id.startBtn)
-        pauseBtn = floatView!!.findViewById(R.id.pauseBtn)
+        startBtn = floatView!!.findViewById(R.id.startBtn_f)
+//        pauseBtn = floatView!!.findViewById(R.id.pauseBtn)
         resetBtn = floatView!!.findViewById(R.id.resetBtn)
+
+        startBtn!!.setCompoundDrawablesWithIntrinsicBounds(
+            android.R.drawable.ic_media_play,
+            0,
+            0,
+            0
+        )
+        resetBtn!!.setCompoundDrawablesWithIntrinsicBounds(
+            android.R.drawable.ic_menu_revert,
+            0,
+            0,
+            0
+        )
 
         // Just like MainActivity, the text written
         // in Maximized will stay
@@ -93,15 +102,15 @@ class FloatingWindowGFG : Service() {
 
         startBtn!!.setOnClickListener(View.OnClickListener {
             if (!mTimerRunning) {
-                Common.savedTime = Common.currentTime
-                mTimer = object : CountDownTimer(Common.currentTime.toLong() * 1000, 1000) {
+                mTimer = object : CountDownTimer((1 + Common.currentTime.toLong()) * 1000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
+                        Common.currentTime = Math.floorDiv(
+                            millisUntilFinished.toInt(),
+                            1000
+                        )
                         dispTimer!!.setText(
                             secToString(
-                                Math.floorDiv(
-                                    millisUntilFinished.toInt(),
-                                    1000
-                                )
+                                Common.currentTime
                             )
                         )
                     }
@@ -118,9 +127,22 @@ class FloatingWindowGFG : Service() {
                 floatView!!.setBackgroundColor(Color.RED)
                 mTimerRunning = true
                 mTimer!!.start()
-            }else{
-                mTimerRunning = true
+                startBtn!!.setCompoundDrawablesWithIntrinsicBounds(
+                    android.R.drawable.ic_media_pause,
+                    0,
+                    0,
+                    0
+                )
+            } else {
+                mTimerRunning = false
                 mTimer!!.cancel()
+                floatView!!.setBackgroundColor(Color.WHITE)
+                startBtn!!.setCompoundDrawablesWithIntrinsicBounds(
+                    android.R.drawable.ic_media_play,
+                    0,
+                    0,
+                    0
+                )
             }
         })
 
@@ -225,6 +247,7 @@ class FloatingWindowGFG : Service() {
                         // updated parameter is applied to the WindowManager
                         windowManager!!.updateViewLayout(floatView, floatWindowLayoutUpdateParam)
                     }
+
                 }
                 return false
             }

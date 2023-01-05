@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.gymtimer'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.gymtimer"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -35,6 +35,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -48,4 +49,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'me.grantland:autofittextview:0.2.+'
 }

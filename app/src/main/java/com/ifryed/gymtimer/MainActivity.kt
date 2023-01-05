@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         minimizeBtn = findViewById(R.id.buttonMinimize)
         dispTimer = findViewById(R.id.timer)
         startBtn = findViewById(R.id.startBtn)
-        pauseBtn = findViewById(R.id.pauseBtn)
+//        pauseBtn = findViewById(R.id.pauseBtn)
         resetBtn = findViewById(R.id.resetBtn)
 
         minBtn = findViewById(R.id.min)
@@ -138,15 +138,15 @@ class MainActivity : AppCompatActivity() {
 
         startBtn!!.setOnClickListener(View.OnClickListener {
             if (!mTimerRunning) {
-                Common.savedTime = Common.currentTime
-                mTimer = object : CountDownTimer(Common.currentTime.toLong() * 1000, 1000) {
+                mTimer = object : CountDownTimer((1 + Common.currentTime.toLong()) * 1000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
+                        Common.currentTime = Math.floorDiv(
+                            millisUntilFinished.toInt(),
+                            1000
+                        )
                         dispTimer!!.setText(
                             secToString(
-                                floorDiv(
-                                    millisUntilFinished.toInt(),
-                                    1000
-                                )
+                                Common.currentTime
                             )
                         )
                     }
@@ -163,6 +163,12 @@ class MainActivity : AppCompatActivity() {
                 mBgView!!.setBackgroundColor(Color.RED)
                 mTimerRunning = true
                 mTimer!!.start()
+                startBtn!!.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause,0,0,0)
+            } else {
+                mTimerRunning = false
+                mTimer!!.cancel()
+                mBgView!!.setBackgroundColor(Color.WHITE)
+                startBtn!!.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play,0,0,0)
             }
         })
 
@@ -235,7 +241,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTime(newTime: Int) {
-        if(mTimerRunning){
+        if (mTimerRunning) {
             return
         }
         dispTimer!!.setText(secToString(newTime))
