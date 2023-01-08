@@ -102,7 +102,7 @@ class FloatingWindowGFG : Service() {
 
         startBtn!!.setOnClickListener(View.OnClickListener {
             if (!mTimerRunning) {
-                mTimer = object : CountDownTimer((1 + Common.currentTime.toLong()) * 1000, 1000) {
+                mTimer = object : CountDownTimer((Common.currentTime.toLong()) * 1000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         Common.currentTime = Math.floorDiv(
                             millisUntilFinished.toInt(),
@@ -260,6 +260,7 @@ class FloatingWindowGFG : Service() {
         mTimer!!.cancel()
         floatView!!.setBackgroundColor(Color.WHITE)
         dispTimer!!.setText(secToString(Common.savedTime))
+        startBtn!!.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play,0,0,0)
     }
 
     // It is called when stopService()

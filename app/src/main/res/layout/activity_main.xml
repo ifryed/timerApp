@@ -25,7 +25,7 @@
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="time"
         android:text="00:00:00"
@@ -33,7 +33,7 @@
         android:textColor="@color/black"
         android:textSize="80dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonMinimize" />
 
@@ -45,7 +45,7 @@
         app:justifyContent="space_around"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer"
-        app:layout_constraintVertical_bias="0.124"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"> <!-- or "space_between", "space_evenly" -->
 
@@ -61,17 +61,17 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="13dp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/pauseBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="0"-->
-<!--            android:contentDescription="pause"-->
-<!--            android:textFontWeight="0"-->
-<!--            app:icon="@android:drawable/ic_media_pause"-->
-<!--            app:iconGravity="start|end"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/startBtn"-->
-<!--            tools:layout_editor_absoluteX="130dp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/pauseBtn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="0"-->
+        <!--            android:contentDescription="pause"-->
+        <!--            android:textFontWeight="0"-->
+        <!--            app:icon="@android:drawable/ic_media_pause"-->
+        <!--            app:iconGravity="start|end"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/startBtn"-->
+        <!--            tools:layout_editor_absoluteX="130dp" />-->
 
         <Button
             android:id="@+id/resetBtn"
@@ -91,37 +91,45 @@
     <LinearLayout
         android:id="@+id/intervalLayout"
         android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="52dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ctrlLayout">
+        app:layout_constraintTop_toBottomOf="@+id/ctrlLayout">
 
         <Button
             android:id="@+id/halfmin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/btnColor"
+            android:inputType="textPostalAddress"
+            android:maxWidth="0dp"
+            android:minWidth="0dp"
             android:text="30 Sec" />
 
         <Button
             android:id="@+id/min"
-            android:layout_width="10dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/btnColor"
+            android:inputType="textPostalAddress"
+            android:maxWidth="0dp"
+            android:minWidth="0dp"
             android:text="1:00" />
 
         <Button
             android:id="@+id/min2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/btnColor"
+            android:inputType="textPostalAddress"
+            android:maxWidth="0dp"
+            android:minWidth="0dp"
             android:text="2:00" />
 
     </LinearLayout>
